@@ -59,7 +59,7 @@ int main()
     merge_sort(arr, 0, num - 1, sorted);
     for (int i = 0; i < num; i++)
     {
-        printf("%d\n", arr[i]);
+        printf("%d\n", sorted[i]);
     }
     return 0;
 }

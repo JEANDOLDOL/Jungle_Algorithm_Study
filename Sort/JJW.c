@@ -1,7 +1,6 @@
 #include <stdio.h>
 int sort(int *arr, int n)
 {
-    int new_arr[n];
     int temp = 0;
     for (int i = 0; i < n; i++)
     {

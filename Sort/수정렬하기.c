@@ -12,7 +12,7 @@ int main() {
     int arr_size;
     scanf("%d", &arr_size);
 
-    int *arr = (int *)malloc(arr_size * sizeof(int));
+    int *arr = (int *)calloc(arr_size, sizeof(int));
     if (arr == NULL) {
         return 1;
     }
