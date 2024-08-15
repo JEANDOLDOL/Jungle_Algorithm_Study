@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-static int minCost = (1 << 30);
+static int minCost = (~0);
 
 int Calc(int *route, int** arr, int N)
 {
