@@ -1,0 +1,1 @@
+sum -= arr[start][0];
