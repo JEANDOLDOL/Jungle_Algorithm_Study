@@ -1,6 +1,6 @@
 #include <stdio.h>
 static int sum;
-static int minsum = 2147483647;
+static unsigned int minsum = (~0);
 
 void travel(int depth, int start, int max, int visited[max], int arr[max][max])
 {
