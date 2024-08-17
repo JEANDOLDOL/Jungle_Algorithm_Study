@@ -3,8 +3,7 @@
 
 typedef struct _Vertex
 {
-    int* adjs;
-
+    int adjs;
     int color; // 0:접근안함 1,-1 색
 }Vertex;
 
@@ -13,19 +12,18 @@ void PrintVertex(Vertex* vertex, int V)
     printf("%d : ", vertex->color);
     for(int i = 0; i < V; i++)
     {
-        printf("%d ", vertex->adjs[i]);
+        printf("%d ", vertex->adjs);
     }
     printf("\n");
 }
 
 void InitVertex(Vertex* vertex, int V)
 {
-    vertex->adjs = (int*)calloc(V, sizeof(int));
+    vertex->adjs = 0;
     vertex->color = 0;
 }
 void FreeVertex(Vertex* vertex)
 {
-    free(vertex->adjs);
     free(vertex);
 }
 
@@ -36,16 +34,18 @@ int DFS(Vertex* current, int color, int V, Vertex** vertexes)
     {
         if(current->color == color) return 0;
         else return 1;
-    }
+    }   
 
+    int bitComparer = 1;
     current->color = color;
     for(int i = 0; i < V; i++)
     {
         //current가 탐색할 노드(i)와 인접할 경우 DFS 실행
-        if(current->adjs[i])
+        if(current->adjs & bitComparer)
         {
             if(DFS(vertexes[i], -color, V, vertexes)) return 1;
         }
+        bitComparer <<= 1;
     }
     return 0;
 }
@@ -73,8 +73,8 @@ int main()
         for(int i = 0; i < E; i++)
         {
             scanf("%d %d", &a, &b);
-            vertexes[a-1]->adjs[b-1] = 1;
-            vertexes[b-1]->adjs[a-1] = 1;
+            vertexes[a-1]->adjs |= (1<<(b-1));
+            vertexes[b-1]->adjs |= (1<<(a-1));
         }
 
 

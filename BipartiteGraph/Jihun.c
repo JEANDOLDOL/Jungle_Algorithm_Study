@@ -20,7 +20,7 @@ struct _Vertex
 {
     LinkedList* adjs;
     int color; // 0:접근안함 1,-1 색
-    int index;
+    //int index;
 };
 
 void AddAdj(Vertex* a, Vertex* b)
@@ -58,31 +58,31 @@ void AddAdj(Vertex* a, Vertex* b)
     
 }
 
-void PrintVertex(Vertex* vertex)
-{
-    printf("%d : ", vertex->color);
+// void PrintVertex(Vertex* vertex)
+// {
+//     printf("%d : ", vertex->color);
     
-    Node* node = vertex->adjs->root;
-    if(node)
-    {
-        printf("%d ", node->vertex->index);
-        while (node->next)
-        {
-            // next = node->next;
-            node = node->next;
-            printf("%d ", node->vertex->index);
-        }
-    }
-    printf("\n");
-}
+//     Node* node = vertex->adjs->root;
+//     if(node)
+//     {
+//         printf("%d ", node->vertex->index);
+//         while (node->next)
+//         {
+//             // next = node->next;
+//             node = node->next;
+//             printf("%d ", node->vertex->index);
+//         }
+//     }
+//     printf("\n");
+// }
 
-void InitVertex(Vertex* vertex, int V, int index)
+void InitVertex(Vertex* vertex, int V/*, int index*/)
 {
     vertex->adjs = (LinkedList*)malloc(sizeof(LinkedList));
     vertex->adjs->root = NULL;
     vertex->adjs->last = NULL;
     vertex->color = 0;
-    vertex->index = index;
+    //vertex->index = index;
 }
 void FreeVertex(Vertex* vertex)
 {
@@ -138,7 +138,7 @@ int main()
         for(int i = 0; i < V; i++)
         {
             vertexes[i] = (Vertex*)malloc(sizeof(Vertex));  //정점 포인터 동적할당
-            InitVertex(vertexes[i], V, i);
+            InitVertex(vertexes[i], V/*, i*/);
         }
 
         // 간선 초기화
