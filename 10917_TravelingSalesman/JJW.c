@@ -57,6 +57,7 @@ int main()
     travel(0, 0, N, visited, arr);
 
     printf("%d", minsum);
+
     return 0;
 }
 
