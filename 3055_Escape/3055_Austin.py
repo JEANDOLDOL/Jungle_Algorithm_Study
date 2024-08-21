@@ -30,7 +30,7 @@ def bfs(Dx,Dy):
                     graph[nx][ny] = 'S' 
                     # 그 위치에 +1 
                     distance[nx][ny] = distance[x][y] + 1
-                    queue.append((nx,ny))
+                    queue.append ((nx,ny))
                 # 현재가 물이고 ny nx 가 움직일수 있는 곳
                 elif (graph[nx][ny] =='.' or graph[nx][ny] =='S') and graph[x][y] == '*':
                     graph[nx][ny] = '*'
