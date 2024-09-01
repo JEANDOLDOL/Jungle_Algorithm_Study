@@ -26,55 +26,28 @@
 2. DFS끝나고, 저장된 두 루트를 비교해서 중복된 sub-route들 찾고 그에 해당하는 가중치 얻기. 
 3. sub-route의 가중치 - 두 루트의 총 가중치 = 답
 
+
+----------------변경된 계획----------------
+계획이 변경 되었다. 
+각각의 노드들의 path를 관리하고 중복 값을 방지하며 추가적인 리스트들을 관리하여야 했기에 더욱 단순한 방법을 모색했다. 
+그 방법은, 루트에서 가장 먼(가중치의 합이 가장 큰) leaf node를 찾는다. 
+그후 그 노드를 root노드 삼아 다시 dfs를 해서 가장 먼 노드를 찾아 그 만큼의 가중치를 반환한다.
 """
 
 
-# import sys
-# # Take no of test cases
-# n = int(input())
-
-# # Create a adj_list of the tree
-# adj_list = {i:[] for i in range(1, n+1)} # 1부터 n까지 키를 가진 인접 리스트 만들기
-
-# # 그래프 인풋 받기
-# for _ in range(n-1):
-#     p, c, w = map(int, sys.stdin.readline().rstrip().split())
-#     adj_list[p].append([c,w]) # 단방향 부모 -> 자식
-
-# fisrt_second_routes = []
-# fisrt_second_weights = []
-
-# def dfs(node, sum):
-#     print(node, sum)
-#     if not adj_list[node]: # 끝 노드까지 도착 했을때
-#         if not fisrt_second_weights: # 첫 값 넣어주기
-#             fisrt_second_weights.append(sum)
-#             return
-
-#         for i in fisrt_second_weights:# 현재 fisrt_second_weights와 비교해서 높으면 추가
-#             if i < sum:
-#                 fisrt_second_weights.append(sum)
-#         return    
-#     for i in range(len(adj_list[node])): # 자식 노드 수 만큼
-#         dfs( adj_list[node][i][0], sum + adj_list[node][i][1])
- 
-# dfs(1,0)
-# print(fisrt_second_weights)
-
 
 import sys
-sys.setrecursionlimit(10**6)  # 재귀 깊이 제한 늘리기
-
+sys.setrecursionlimit(10**6)  
 n = int(input())
 
-# 인접 리스트 생성 (양방향으로 변경)
+# 인접 리스트 생성 
 adj_list = {i: [] for i in range(1, n+1)}
 
-# 그래프 입력 받기 (양방향으로 변경)
+# 그래프 입력 받기 
 for _ in range(n-1):
     p, c, w = map(int, sys.stdin.readline().rstrip().split())
     adj_list[p].append((c, w))
-    adj_list[c].append((p, w))  # 양방향 추가
+    adj_list[c].append((p, w))  
 
 def dfs(node, parent, distance):
     max_distance = distance
@@ -89,10 +62,10 @@ def dfs(node, parent, distance):
 
     return max_distance, max_node
 
-# 임의의 노드(여기서는 1)에서 가장 먼 노드 찾기
+# root의 노드에서 가장 먼 노드 찾기
 _, farthest_node = dfs(1, 0, 0)
 
-# 가장 먼 노드에서 다시 가장 먼 노드 찾기 (이것이 트리의 지름)
+# 가장 먼 노드에서 다시 가장 먼 노드 찾기 
 diameter, _ = dfs(farthest_node, 0, 0)
 
 print(diameter)
