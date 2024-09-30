@@ -4,6 +4,8 @@ N = int(input())
 
 graph = list(map(int, input().split()))
 
-print(graph)
+dp = 0
+
+# for i in range(N+1):
 
 # hello
