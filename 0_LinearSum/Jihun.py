@@ -1,9 +1,6 @@
 N = int(input())
 
-temp = input().split()
-arr = []
-for i in temp:
-    arr.append(int(i))
+arr = list(map(int, input().split()))
 
 max = arr[0]
 sum = 0
