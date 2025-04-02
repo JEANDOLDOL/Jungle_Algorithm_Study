@@ -1,39 +1,35 @@
-from collections import deque
+import sys
+sys.setrecursionlimit(10000)
 
-T = int(input())
-dx = [1, -1, 0, 0]
-dy = [0, 0, 1, -1]
+dx = [-1,1,0,0]
+dy = [0,0,-1,1]
 
+def FindCabage(graph, x, y, width, height):
+    for i in range(4):
+        nx = x + dx[i]
+        ny = y + dy[i]
+        if (0 <= nx < width)and(0 <= ny < height):
+            if graph[ny][nx] == 1:
+                graph[ny][nx] = 0
+                FindCabage(graph, nx, ny, width, height)
+        
 
-def bfs(i, e):
-    q = deque()
-    q.append((i, e))
-    graph[e][i] = 0  # 배추 할당
+t = int(input()) 
 
-    while q:
-        x, y = q.popleft()
-        for k in range(4):
-            new_x = x + dx[k]
-            new_y = y + dy[k]
-            if 0 <= new_x < M and 0 <= new_y < N and graph[new_y][new_x] == 1:
-                q.append((new_x, new_y))
-                graph[new_y][new_x] = 0  # 인접 배추 할당
-    return
-
-
-for _ in range(T):
-    count = 0
-    M, N, K = map(int, input().split())
-    graph = [[0] * M for _ in range(N)]
-    for _ in range(K):
-        a, b = map(int, input().split())
-        graph[b][a] = 1
-
-    for e in range(N):
-        for i in range(M):
-            # 순서 주의
-            if graph[e][i] == 1:
-                bfs(i, e)
-                count += 1
-
-    print(count)    
+for i in range(t):
+    m,n,k = map(int,input().split())
+    
+    farm = [[0] * m for _ in range(n)]
+    worm = 0
+    
+    for e in range(k):
+        a,b = map(int,input().split())
+        farm[b][a] = 1
+        
+    for i in range(n):
+        for e in range(m):
+            if farm[i][e] == 1:
+                FindCabage(farm,e,i,m,n)
+                worm += 1
+    
+    print(worm)
